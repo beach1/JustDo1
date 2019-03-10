@@ -30,10 +30,12 @@ class PopupWrapper extends Component{
     
     render(){
         return(
-            <div className={this.props.classNameDiv} ref={(ref)=>this.node=ref}>
+            <div className={this.props.classNameDiv}
+             ref={(ref)=>this.node=ref}>
                 {this.state.isOpen ? this.props.children:null}
                 <img onClick={()=>this.onImageClick()}
-                 className={this.props.className} src={this.props.src}></img>
+                 className={this.props.className}
+                 src={this.props.src}></img>
             </div>
         )
     }

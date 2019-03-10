@@ -318,6 +318,7 @@ textarea:focus{
     border: none;
     font-family: "SF UI Text";
     font-size: 18px;
+    cursor: pointer;
 }
 .main-change-workplace input {
     border:none;

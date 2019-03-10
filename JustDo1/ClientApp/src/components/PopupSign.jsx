@@ -36,11 +36,17 @@ class PopupSign extends Component{
     
     render(){
         return(
-            <div onClick={()=>this.onDivClick()} className={this.props.className} ref={(ref)=>this.node=ref}>
+			<div onClick={()=>this.onDivClick()}
+			 className={this.props.className}
+			 ref={(ref)=>this.node=ref}>
                 {this.state.isOpen && 
                 <div className={this.props.classNamePopup}>
-                    <p onClick={()=>this.props.onChangePage(2)}>Change Password</p>
-                    <p onClick={()=>this.onSignOut()}>Sign Out</p>
+                    <p onClick={()=>this.props.onChangePage(2)}>
+						Change Password
+					</p>
+                    <p onClick={()=>this.onSignOut()}>
+						Sign Out
+					</p>
                 </div>}
                 <img src={this.props.src}></img>
             </div>

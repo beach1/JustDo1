@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import StartPage from './components/StartPage';
 import MainPage from './components/MainPage';
-import Test from './components/Test';
 import {BrowserRouter,Switch,Route} from 'react-router-dom';
 import {getJwt} from './support/jwt';
 

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PopupWrapper from './PopupWrapper';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {API,defaultState,selectAlarm,selectImportant,pad} from '../support/constants';
-import {priorityToInt,alarmToInt} from '../support/switchcase';
+import {API, defaultState, selectAlarm, selectImportant, pad} from '../support/constants';
+import {priorityToInt, alarmToInt} from '../support/switchcase';
 import {TasksContext} from './TasksContext';
 import {authHeader} from '../support/jwt';
 
@@ -33,31 +33,38 @@ class TaskFooter extends Component {
 		const value = e.target.value;
 		this.setState({[name]: value});
 	}
+
 	onSubmit(value){
 		if (!this.state.name){ return }
+
 		let state=this.state;
 		let date = state.date.getFullYear()+'-'+
-		pad(state.date.getMonth()+1,2)+'-'+pad(state.date.getDate(),2)+' '+ state.hour+':'+state.minute;
-		let time = state.hour+':'+state.minute;
+		pad(state.date.getMonth()+1,2)+'-'+pad(state.date.getDate(),2)
+		+' '+ state.hour+':'+state.minute;
 		let important = priorityToInt(state.importantValue);
 		let alarm = alarmToInt(state.alarmValue);
 		let task = {name: state.name, description:'Добавьте описание',
-		date: date, time: time, priority: important, alarm: alarm}
+		date: date, priority: important, alarm: alarm}
+
 		fetch(API+'/Create', {
             method: 'put',
 			headers: authHeader(),
             body: JSON.stringify(task)
 		}).then(()=>value.onAdd());
-		this.setState({defaultState},alert(123));
+
+		this.setState({defaultState});
 	}
+
 	getValueAlarm(e){
 		let value=e.currentTarget.textContent;
 		this.setState({alarmValue:value});
 	}
+
 	getValueImportant(e){
 		let value=e.currentTarget.textContent;
 		this.setState({importantValue:value});
 	}
+
 	hourUp(){
 		let current=parseInt(this.state.hour, 10)
 		let hour;
@@ -70,6 +77,7 @@ class TaskFooter extends Component {
 		this.setState({hour:hour});
 		
 	}
+
 	minuteUp(){
 		let current=parseInt(this.state.minute, 10)
 		let minute;
@@ -81,6 +89,7 @@ class TaskFooter extends Component {
 		}
 		this.setState({minute:minute});
 	}
+
 	hourDown(){
 		let current=parseInt(this.state.hour, 10)
 		let hour;
@@ -92,6 +101,7 @@ class TaskFooter extends Component {
 		}
 		this.setState({hour:hour});
 	}
+
 	minuteDown(){
 		let current=parseInt(this.state.minute, 10)
 		let minute;
@@ -103,6 +113,7 @@ class TaskFooter extends Component {
 		}
 		this.setState({minute:minute});
 	}
+
 	colorImportant(index){
 		switch (index) {
 			case 0:
@@ -139,14 +150,18 @@ class TaskFooter extends Component {
 						classNameDiv='footer-dropdown select-clock'>
 							<div className='clock-select'>
 								<div className='part-clock'>
-									<img onClick={this.hourUp} src='./img/ic_arrow_up_grey.png' alt='1'></img>
+									<img onClick={this.hourUp}
+									 src='./img/ic_arrow_up_grey.png' alt='1'></img>
 									<p>{this.state.hour}</p>
-									<img onClick={this.hourDown} src='./img/ic_arrow_down.png' alt='1'></img>
+									<img onClick={this.hourDown}
+									 src='./img/ic_arrow_down.png' alt='1'></img>
 								</div>
 								<div className='part-clock'>
-									<img onClick={this.minuteUp} src='./img/ic_arrow_up_grey.png' alt='1'></img>
+									<img onClick={this.minuteUp}
+									 src='./img/ic_arrow_up_grey.png' alt='1'></img>
 									<p>{this.state.minute}</p>
-									<img onClick={this.minuteDown} src='./img/ic_arrow_down.png' alt='1'></img>
+									<img onClick={this.minuteDown}
+									 src='./img/ic_arrow_down.png' alt='1'></img>
 								</div>
 							</div>
 						</PopupWrapper>
