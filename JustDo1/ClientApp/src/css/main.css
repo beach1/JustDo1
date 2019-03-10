@@ -1,0 +1,478 @@
+#root{
+    height: 100%;
+    width: 100%;
+}
+.main-menu{
+    width:16vw;
+    min-width: 120px;
+    background-size: cover;
+    background: linear-gradient(14deg, #56CCF2, #2F80ED);
+    display: flex;
+    color: #FFFFFF;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.main-page{
+    overflow: hidden;
+    width:100%;
+    height: 100%;
+    display: flex;
+    font-family: Comfortaa;
+    min-width: 900px;
+    min-height: 450px;
+}
+.main-page .menu-label{
+    font-weight: bold;
+    font-size: 25px;
+    margin-top:6vh;
+}
+.menu-h1 img{
+    width: 13px;
+    height: 7px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+}
+.main-menu p{
+    cursor: pointer;
+}
+.main-menu p:nth-child(n+3){
+    font-size: 16px;
+}
+.main-menu p:nth-child(3){
+    font-size: 16px;
+}
+.underline-paragraph{
+    border-bottom:2px solid white;
+    padding-bottom:1px;
+}
+.menu-h1{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+.main-page .menu-h1 p{
+    font-size: 20px;
+    font-family: "SF UI Text";
+    margin-top:3.3vh;
+}
+.main-menu p {
+    margin-left: 1.8vw;
+}
+.main-menu .add-img{
+    margin-left: 1.8vw;
+    width: 20px;
+    height: 20px;
+}
+.main-workplace{
+    width: 84vw;
+    height: 100%;
+    margin-left: 3.7vw;
+    margin-right: 3.4vw;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+.main-change-workplace{
+    width: 84vw;
+    height: 100%;
+    margin-left: 3.7vw;
+    margin-right: 3.4vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.add-task-footer{
+    height: 16.4vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-color: #FFFFFF;
+}
+.workplace-header{
+    position: absolute;
+    top:3.4vh;
+    right:1.9vw;
+    width:37px;
+    height: 37px;
+    border-radius: 50%;
+    background: linear-gradient(18deg, #56CCF2, #2F80ED);
+    cursor: pointer;
+}
+.header-menu{
+    width: 120px;
+    height: 70px;
+    position: absolute;
+    top:9vh;
+    right:1.9vw;
+    border: 1px solid black;
+    border-radius: 8px;
+    z-index:5;
+}
+.nonvisible{
+    display:none;
+}
+.header-menu p{
+    margin-top: 13px;
+    margin-left:5px;
+    font-family: "SF UI Text";
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+.workplace-header img{
+    position: absolute;
+    height: 23px;
+    width: 5px;
+    right:16px;
+    top:7px;
+    cursor: pointer;
+}
+.workplace-body{
+    height: 74.4vh;
+    overflow-y: auto;
+}
+
+.task-icons{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 19px;
+    margin-bottom: 4.1vh;
+}
+.add-task-footer img{
+    cursor: pointer;
+    margin-left: 0px;   
+}
+.footer-dropdown{
+    width: 16px;
+    height: 16px;
+    margin-bottom: 4.3vh;
+}
+.curcle{
+    width: 12px!important;
+    height: 12px!important;
+    border-radius: 50%;
+    background-color: #BBBBC7;
+    margin-left: 2.2vw;
+    cursor: pointer;
+}
+.main-page input {
+    border:none;
+    border-bottom: 1px solid #B4B4B4;
+    width:100%;
+    padding-bottom: 8px;
+    padding-left: 5px;
+    font-family: "SF UI Text";
+}
+.main-page input:focus{
+    outline: none;
+}
+input::placeholder{
+    color: #BBBBC7;
+}
+.footer-send{
+    font-family: "SF UI Text";
+    color:#2F80ED;
+    font-size: 16px;
+    margin-left: auto;
+    cursor: pointer;
+}
+.footer-line{
+    border-width: 1px;
+    width: 100%;
+    margin-bottom: 17px;
+    margin-top: 1px;
+    background-color: #BBBBC7;
+}
+
+.workplace-body ul{
+    padding: 0px;
+}
+ul img{
+    margin-left: 10px;
+}
+.workplace-body li{
+    font-family: "SF UI Text";
+    font-size: 20px;
+    overflow: hidden;
+    color:#BBBBC7;
+}
+.date-li{
+    cursor: pointer; 
+    display:inline-block;
+}
+li p:focus{
+    outline: none;
+}
+li p:focus ~ .singletask {
+    display: flex;
+}
+.singletask{
+    width:100%;
+    height: 16vh;
+    min-height: 130px;
+    z-index: 5;
+    font-family: "SF UI Text";
+}
+.task-select{
+    margin-top: 2.5vh;
+}
+input[type="checkbox"] {
+    height: 18px;
+    width: 18px;
+  }
+.task-fields{
+    margin-left: 1.8vw;
+    width: 100%;
+    min-width: 600px;
+}
+.task-fields p{
+    color:#212020;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 5px;
+    margin-top: 1.45vmax;
+}
+.task-fields textarea{
+    color:#BBBBC7;
+    font-size: 16px;
+    height: 27px;
+    border:none;
+    width: 100%;
+    resize: none;
+    margin-bottom:10px; 
+}
+textarea:focus{
+    outline: none;
+}
+.task-status{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 14px;
+    height: 19px;
+    margin-bottom: 1vh;
+    color:#212020;
+}
+.task-status .importance{
+    display: flex;
+    flex-direction: row;
+    width: 10vw;
+    min-width: 130px;
+}
+.task-status .curcle{
+    margin-left: 0px;
+    margin-right: 0.8vw;
+}
+.task-status img{
+    margin-right: 0.8vw;
+}
+.task-fields .footer-line{
+    margin-left: -3vw;
+    width: 77vw;
+}
+.red-important{
+    background-color: #F24A3C;
+}
+.yellow-important{
+    background-color: #F7C920;
+}
+.blue-important{
+    background-color: #2F80ED;
+}
+.grey-important{
+    background-color: #C9C9C9;
+}
+.task-status p{
+    font-weight: 400;
+    margin:0;
+}
+.trash{
+    position: absolute;
+    right:5vw;
+    top:20vh;
+}
+.hidden-trash{
+    display: none;
+}
+.main-change-workplace .reset-form{
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-family: system-ui, -apple-system-headline, BlinkMacSystemFont, "Helvetica Neue",
+      "Lucida Grande", "Segoe UI";
+}
+.main-change-workplace button{
+    width: 257px;
+    border-radius: 26px;
+    background: linear-gradient(238deg, #2F80ED, #56CCF2);
+    height: 6vh;
+    color:#FFF;
+    border: none;
+    font-family: "SF UI Text";
+    font-size: 18px;
+}
+.main-change-workplace input {
+    border:none;
+    border-bottom: 1px solid #B4B4B4;
+    width:427px;
+    padding-bottom: 8px;
+    padding-left: 5px;
+}
+.main-change-workplace .reset-label{
+    text-align: center;
+    width:17vw;
+    margin-bottom: 10vh;
+    font-family: Comfortaa;
+    font-weight: bold;
+    font-size: 24px;
+}
+.popup-choice{
+    position: relative;
+    height:0px;
+}
+.footer-dropdown .react-datepicker{
+    position: absolute!important;
+    height: 31vh;
+    min-height: 230px;
+    bottom:7vh;
+    left:12vw;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    font-family: "SF UI Text"!important;
+    font-weight: 500;
+}
+.footer-dropdown .react-datepicker__header{
+    background: #FFFFFF;
+}
+.footer-dropdown .react-datepicker__day--selected{
+    background-color: #2F80ED;
+    border-radius: 50%;
+}
+.footer-dropdown .react-datepicker__day--selected:hover{
+    background-color: #2F80ED;
+    border-radius: 50%;
+}
+.footer-dropdown .react-datepicker__day:hover {
+    border-radius: 50%;
+    background-color: #f0f0f0;
+}
+.dropdown-menu{
+    display: flex;
+    flex-direction: row;
+    
+}
+.select-alarm{
+    margin-left: 2.2vw;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.select-clock{
+    margin-left: 2.2vw;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.select-important{
+    margin-left: 2.2vw;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.dropdown-menu .clock-select{
+    position: absolute!important;
+    bottom:7vh;
+    display: flex;
+    flex-direction: row;
+    padding: 0 10px;
+    width: 8.5vw;
+    height: 14.3vh;
+    min-width: 100px;
+    min-height: 80px;
+    border-radius: 8px;
+    background: #FFFFFF;
+    left:18vw;
+    text-align-last: center;
+    box-shadow:0 0 10px rgba(0,0,0,0.5)
+}
+
+.dropdown-menu .alarm-select{
+    position: absolute!important;
+    bottom:7vh;
+    border-radius: 8px;
+    background: #FFFFFF;
+    left:22vw;
+    text-align-last: center;
+    box-shadow:0 0 10px rgba(0,0,0,0.5)
+}
+
+.dropdown-menu .important-select{
+    position: absolute!important;
+    bottom:7vh;
+    border-radius: 8px;
+    background: #FFFFFF;
+    left:25vw;
+    min-width: 100px;
+    text-align-last: center;
+    box-shadow:0 0 10px rgba(0,0,0,0.5)
+}
+.clock-select div{
+    text-align: center;
+    font-family: "SF UI Text";
+    font-size: 12px;
+    width: 7vw;
+    min-width: 80px;
+    margin:10px 0;
+    font-weight: 600;
+    cursor: pointer;
+}
+.alarm-select div{
+    text-align: center;
+    font-family: "SF UI Text";
+    font-size: 12px;
+    width: 7vw;
+    min-width: 80px;
+    margin:10px 0;
+    font-weight: 600;
+    cursor: pointer;
+}
+.important-select div{
+    display: flex;
+    flex-direction: row;
+    align-items:center;
+    text-align: center;
+    font-family: "SF UI Text";
+    font-size: 12px;
+    width: 7.7vw;
+    min-width: 12px;
+    margin:10px 0;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.important-select .curcle{
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+.clock-select .part-clock{
+    display: flex;
+    min-width: 0px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: auto;
+}
+.part-clock p{
+    margin:10px 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+.part-clock img{
+    width: 13px;
+    height: 7px;
+}

@@ -1,0 +1,22 @@
+[type="date"] {
+    background:#fff url('./img/ic_calendar.png')  97% 50% no-repeat ;
+  }
+  [type="date"]::-webkit-inner-spin-button {
+    display: none;
+  }
+  [type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+  }
+  
+  /* custom styles */
+  label {
+    display: block;
+  }
+  #dateofbirth {
+    border: none;
+    border-radius: 5px;
+    height:19px;
+    background-color: #fff;
+    padding: 3px 5px;
+    width: 40px;
+  }

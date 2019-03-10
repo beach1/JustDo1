@@ -1,6 +1,8 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
 import './index.css';
+import './css/style.css';
+import './css/main.css';
+import './fonts/SanFrancisco/stylesheet.css';
+import './calendar.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';

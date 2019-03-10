@@ -1,20 +1,33 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import StartPage from './components/StartPage';
+import MainPage from './components/MainPage';
+import Test from './components/Test';
+import {BrowserRouter,Switch,Route} from 'react-router-dom';
+import {getJwt} from './support/jwt';
 
-export default class App extends Component {
-  displayName = App.name
-
+class App extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {
+      redirect:false
+    }
+  }
+  checkAuth(){
+    var jwt = getJwt();
+    if (!jwt){
+      return false;
+    }
+    return true;
+  }
   render() {
-    return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetchdata' component={FetchData} />
-      </Layout>
-    );
+    return(
+    <BrowserRouter>
+      <Switch>
+        <Route path="/signin" exact component={StartPage}></Route>
+        <Route path="/" exact render={()=> this.checkAuth() ? <MainPage></MainPage>: <StartPage></StartPage>}></Route>
+      </Switch>
+    </BrowserRouter>
+    )
   }
 }
+export default App;

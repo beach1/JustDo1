@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using JustDo1.Model;
 
 namespace JustDo1
 {
@@ -21,6 +24,33 @@ namespace JustDo1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSingleton<IAppRepository, AppRepository>();
+            services.AddSingleton<ILogic, Logic>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = true;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        // укзывает, будет ли валидироваться издатель при валидации токена
+                        ValidateIssuer = true,
+                        // строка, представляющая издателя
+                        ValidIssuer = AuthOptions.ISSUER,
+
+                        // будет ли валидироваться потребитель токена
+                        ValidateAudience = true,
+                        // установка потребителя токена
+                        ValidAudience = AuthOptions.AUDIENCE,
+                        // будет ли валидироваться время существования
+                        ValidateLifetime = true,
+
+                        // установка ключа безопасности
+                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                        // валидация ключа безопасности
+                        ValidateIssuerSigningKey = true,
+                    };
+                });
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
