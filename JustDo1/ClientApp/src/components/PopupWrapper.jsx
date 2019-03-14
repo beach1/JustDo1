@@ -7,6 +7,7 @@ class PopupWrapper extends Component{
             isOpen:false,
         }
         this.handleClick=this.handleClick.bind(this);
+        this.onImageClick=this.onImageClick.bind(this);
     }
 
     componentDidMount(){
@@ -33,9 +34,9 @@ class PopupWrapper extends Component{
             <div className={this.props.classNameDiv}
              ref={(ref)=>this.node=ref}>
                 {this.state.isOpen ? this.props.children:null}
-                <img onClick={()=>this.onImageClick()}
+                <img onClick={this.onImageClick}
                  className={this.props.className}
-                 src={this.props.src}></img>
+                 src={this.props.src}/>
             </div>
         )
     }

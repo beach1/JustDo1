@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 class PopupSign extends Component{
     constructor(props){
@@ -8,6 +8,8 @@ class PopupSign extends Component{
             isOpen:false,
         }
         this.handleClick=this.handleClick.bind(this);
+		this.onDivClick=this.onDivClick.bind(this);
+		this.onSignOut=this.onSignOut.bind(this);
     }
 
     componentDidMount(){
@@ -31,26 +33,29 @@ class PopupSign extends Component{
 
     onSignOut(){
         localStorage.removeItem('user');
-        this.props.history.push('/SignIn');
     }
     
     render(){
         return(
-			<div onClick={()=>this.onDivClick()}
+			<div onClick={this.onDivClick}
 			 className={this.props.className}
 			 ref={(ref)=>this.node=ref}>
                 {this.state.isOpen && 
                 <div className={this.props.classNamePopup}>
-                    <p onClick={()=>this.props.onChangePage(2)}>
-						Change Password
-					</p>
-                    <p onClick={()=>this.onSignOut()}>
-						Sign Out
-					</p>
+                    <Link to='change-pass'>
+                        <p>
+                            Change Password
+                        </p>
+                    </Link>
+                    <Link to='/'>
+                        <p onClick={this.onSignOut}>
+                            Sign Out
+                        </p>
+                    </Link>
                 </div>}
-                <img src={this.props.src}></img>
+                <img src={this.props.src}/>
             </div>
         )
     }
 }
-export default withRouter(PopupSign)
+export default PopupSign

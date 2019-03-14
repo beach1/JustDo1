@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ListTasks from './ListTasks';
 import {TasksContext} from './TasksContext';
 import {authHeader} from '../support/jwt';
-const API = '/api/app';
+import {APITask} from '../support/constants';
 class MainMenu extends Component {
 	constructor (props) {
 		super(props);
@@ -28,7 +28,7 @@ class MainMenu extends Component {
 
 	removeCheckedTasks(value){
 		let {listChecked}=this.state;
-		fetch(API, {
+		fetch(APITask, {
 			method: 'delete',
 			headers: authHeader(),
 			body: JSON.stringify(listChecked)
@@ -43,8 +43,7 @@ class MainMenu extends Component {
 				<ListTasks
 				addChecked={(id)=>this.addChecked(id)}
 				tasks={value.tasks.filter((task)=> task.date === date)}
-				date={date} key={date}>
-				</ListTasks>)
+				date={date} key={date}/>)
 		)}
 
 	render() {
@@ -55,7 +54,7 @@ class MainMenu extends Component {
 			<div className='workplace-body'>
 				<img onClick={()=>this.removeCheckedTasks(value)}
 				className={listChecked.length>0?'trash':'trash hidden-trash'}
-				src='./img/ic_trash.png' alt='1'></img>
+				src='./img/ic_trash.png' alt='1'/>
 					<ul>
 						{this.listTasks(value)}
 					</ul>

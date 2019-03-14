@@ -24,8 +24,10 @@ namespace JustDo1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSingleton<IAppRepository, AppRepository>();
-            services.AddSingleton<ILogic, Logic>();
+            services.AddSingleton<ITaskRepository, TaskRepository>();
+            services.AddSingleton<ITaskLogic, TaskLogic>();
+            services.AddSingleton<IIdentityRepository, IdentityRepository>();
+            services.AddSingleton<IIdentityLogic, IdentityLogic>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

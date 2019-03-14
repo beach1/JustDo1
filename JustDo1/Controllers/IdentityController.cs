@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using JustDo1.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -13,45 +8,18 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace JustDo1.Controllers
 {
-    [Authorize(AuthenticationSchemes =
-        JwtBearerDefaults.AuthenticationScheme)]
+
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
-    public class AppController : ControllerBase
-    {
-        private ILogic Logic;
 
-        public AppController(ILogic logic)
+    public class IdentityController : ControllerBase
+    {
+        private readonly IIdentityLogic Logic;
+
+        public IdentityController(IIdentityLogic logic)
         {
             Logic = logic;
-        }
-        [HttpGet("{id}")]
-        public IActionResult AllTasks(int id)
-        {
-            return Ok(Logic.AllTasks(id));
-        }
-        [HttpGet("/one/{id}")]
-        public IActionResult GetSingleTask(string id)
-        {
-            return Ok(Logic.GetTask(id));
-        }
-        [HttpDelete]
-        public IActionResult DeleteSingleTask([FromBody] List<string> list)
-        {
-            Logic.DeleteTask(list);
-            return Ok("success");
-        }
-        [HttpPut]
-        public IActionResult EditSingleTask([FromBody]TaskModel task)
-        {
-            Logic.EditTask(task);
-            return Ok("success");
-        }
-        [HttpPut("Create")]
-        public IActionResult CreateSingleTask([FromBody]TaskModel task)
-        {
-            Logic.CreateTask(task);
-            return Ok("success");
         }
         [AllowAnonymous]
         [HttpPost("SignIn")]

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {authHeader} from '../support/jwt';
-import {alarmToString,importantToString} from '../support/switchcase';
-const API = '/api/app';
+import {alarmToString,priorityToString} from '../support/switchcase';
+import {APITask} from '../support/constants';
+import moment from 'moment';
 class SingleTask extends Component {
     constructor (props) {
         super(props);
@@ -23,7 +24,7 @@ class SingleTask extends Component {
             return false;
         }
         task.description = this.state.description;
-        fetch(API, {
+        fetch(APITask, {
             method: 'put',
             headers: authHeader(),
             body: JSON.stringify(task)
@@ -37,21 +38,21 @@ class SingleTask extends Component {
              className='singletask'>
                 <div className='task-select'>
                     <input onChange={()=>this.props.checkedTask(task.id)}
-                     type="checkbox"></input>
-                    <label htmlFor="task-select"></label>
+                     type="checkbox"/>
+                    <label htmlFor="task-select"/>
                 </div>
                 <div className='task-fields'>
                     <p>{task.name}</p>
                     <textarea name='description'
                      defaultValue={this.state.description}
                      onChange={this.onInputChange}
-                     onBlur={()=>this.updateTask()}
-                    ></textarea>
+                     onBlur={this.updateTask}
+                    />
                 <div className='task-status'>
-                    {importantToString(task.priority)}
-                    <img alt='1' src='./img/ic_clock.png'></img>
-                    {task.time}
-                    <img alt='1' src='./img/ic_alarm.png'></img>
+                    {priorityToString(task.priority)}
+                    <img alt='1' src='./img/ic_clock.png'/>
+                    {moment(task.date).format('HH:mm')}
+                    <img alt='1' src='./img/ic_alarm.png'/>
                     {alarmToString(task.alarm)}
                 </div>
                 </div>

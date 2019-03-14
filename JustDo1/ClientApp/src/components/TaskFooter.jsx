@@ -2,27 +2,26 @@ import React, { Component } from 'react';
 import PopupWrapper from './PopupWrapper';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {API, defaultState, selectAlarm, selectImportant, pad} from '../support/constants';
-import {priorityToInt, alarmToInt} from '../support/switchcase';
+import {APITask, selectAlarm, selectPriority, pad} from '../support/constants';
+import {alarmToEnum} from '../support/switchcase';
 import {TasksContext} from './TasksContext';
 import {authHeader} from '../support/jwt';
+import TimerPopup from './TimerPopup';
+
+const initialState ={name:'',date: new Date(),hour:'16',minute:'00',alarmValue:'1 hour',priorityValue:'Neutral'};
 
 class TaskFooter extends Component {
 	constructor (props) {
 		super(props);
-		this.state = defaultState;
-		  this.handleChange = this.handleChange.bind(this);
-		  this.getValueAlarm=this.getValueAlarm.bind(this);
-		  this.getValueImportant=this.getValueImportant.bind(this);
-		  this.hourUp=this.hourUp.bind(this);
-		  this.hourDown=this.hourDown.bind(this);
-		  this.minuteUp=this.minuteUp.bind(this);
-		  this.minuteDown=this.minuteDown.bind(this);
-		  this.handleUserInput=this.handleUserInput.bind(this);
-		  this.onSubmit=this.onSubmit.bind(this);
+		this.state = initialState;
+		this.changeDate = this.changeDate.bind(this);
+		this.getValueAlarm=this.getValueAlarm.bind(this);
+		this.getValuePriority=this.getValuePriority.bind(this);
+		this.handleUserInput=this.handleUserInput.bind(this);
+		this.onSubmit=this.onSubmit.bind(this);
 	}
 
-	handleChange(date) {
+	changeDate(date) {
 		this.setState({
 		  date: date
 		});
@@ -34,87 +33,35 @@ class TaskFooter extends Component {
 		this.setState({[name]: value});
 	}
 
-	onSubmit(value){
+	onSubmit(contextValue){
 		if (!this.state.name){ return }
 
 		let state=this.state;
 		let date = state.date.getFullYear()+'-'+
 		pad(state.date.getMonth()+1,2)+'-'+pad(state.date.getDate(),2)
-		+' '+ state.hour+':'+state.minute;
-		let important = priorityToInt(state.importantValue);
-		let alarm = alarmToInt(state.alarmValue);
+		+' '+ state.hour+	':'+state.minute;
 		let task = {name: state.name, description:'Добавьте описание',
-		date: date, priority: important, alarm: alarm}
-
-		fetch(API+'/Create', {
+		date: date, priority: state.priorityValue, alarm: state.alarmValue}
+		fetch(APITask+'/Create', {
             method: 'put',
 			headers: authHeader(),
             body: JSON.stringify(task)
-		}).then(()=>value.onAdd());
+		}).then(()=>contextValue.onAdd());
 
-		this.setState({defaultState});
+		this.setState({initialState});
 	}
 
 	getValueAlarm(e){
-		let value=e.currentTarget.textContent;
-		this.setState({alarmValue:value});
+		let valueAlarm=e.currentTarget.textContent;
+		this.setState({alarmValue:valueAlarm});
 	}
 
-	getValueImportant(e){
-		let value=e.currentTarget.textContent;
-		this.setState({importantValue:value});
+	getValuePriority(e){
+		let priorityValue=e.currentTarget.textContent;
+		this.setState({priorityValue:priorityValue});
 	}
 
-	hourUp(){
-		let current=parseInt(this.state.hour, 10)
-		let hour;
-		if (current==23){
-			hour='00';
-		} else{
-			current++;
-			hour = pad(current,2);
-		}
-		this.setState({hour:hour});
-		
-	}
-
-	minuteUp(){
-		let current=parseInt(this.state.minute, 10)
-		let minute;
-		if (current==59){
-			minute='00';
-		} else{
-			current++;
-			minute = pad(current,2);
-		}
-		this.setState({minute:minute});
-	}
-
-	hourDown(){
-		let current=parseInt(this.state.hour, 10)
-		let hour;
-		if (current==0){
-			hour='23';
-		} else{
-			current--;
-			hour = pad(current,2);
-		}
-		this.setState({hour:hour});
-	}
-
-	minuteDown(){
-		let current=parseInt(this.state.minute, 10)
-		let minute;
-		if (current==0){
-			minute='59';
-		} else{
-			current--;
-			minute = pad(current,2);
-		}
-		this.setState({minute:minute});
-	}
-
-	colorImportant(index){
+	colorPriority(index){
 		switch (index) {
 			case 0:
 				return 'curcle red-important'
@@ -135,57 +82,44 @@ class TaskFooter extends Component {
 		{value=> (
 			<div className='add-task-footer'>
 					<input value ={this.state.name} onChange={this.handleUserInput}
-					name='name' placeholder='Enter task title...'></input>
-					<hr className='footer-line'></hr>
+					name='name' placeholder='Enter task title...'/>
+					<hr className='footer-line'/>
 					<div className='dropdown-menu'>
-						<PopupWrapper src={'./img/ic_calendar.png'}
+						<PopupWrapper src='./img/ic_calendar.png'
 						className={'footer-calendar'}
 						classNameDiv='footer-dropdown'>
 							<DatePicker inline
 							selected={this.state.date}
-							onChange={this.handleChange}
+							onChange={this.changeDate}
 							/>
 						</PopupWrapper>
-						<PopupWrapper src={'./img/ic_clock.png'}
+						<PopupWrapper src='./img/ic_clock.png'
 						classNameDiv='footer-dropdown select-clock'>
-							<div className='clock-select'>
-								<div className='part-clock'>
-									<img onClick={this.hourUp}
-									 src='./img/ic_arrow_up_grey.png' alt='1'></img>
-									<p>{this.state.hour}</p>
-									<img onClick={this.hourDown}
-									 src='./img/ic_arrow_down.png' alt='1'></img>
-								</div>
-								<div className='part-clock'>
-									<img onClick={this.minuteUp}
-									 src='./img/ic_arrow_up_grey.png' alt='1'></img>
-									<p>{this.state.minute}</p>
-									<img onClick={this.minuteDown}
-									 src='./img/ic_arrow_down.png' alt='1'></img>
-								</div>
-							</div>
+							<TimerPopup onChangeHour={(hour)=>this.setState({hour:hour})}
+							 onChangeMinute={(minute)=>this.setState({minute:minute})}
+							 hour={this.state.hour} minute={this.state.minute}/>
 						</PopupWrapper>
-						<PopupWrapper src={'./img/ic_alarm.png'}
+						<PopupWrapper src='./img/ic_alarm.png'
 						classNameDiv='footer-dropdown select-alarm'>
 							<div className='alarm-select'>
-								{selectAlarm.map((value,index)=>
+								{selectAlarm.map((alarm,index)=>
 								<div onClick={this.getValueAlarm}
-								key={value} name={value}
-								style={this.state.alarmValue==value ? 
-								{color:'#2F80ED'}:{color:'#212020'}}>{value}
+								key={alarm} name={alarm}
+								style={this.state.alarmValue==alarm ? 
+								{color:'#2F80ED'}:{color:'#212020'}}>{alarm}
 								</div>)}
 							</div>
 						</PopupWrapper>
-						<PopupWrapper src={'./img/circle.png'}
+						<PopupWrapper src='./img/circle.png'
 						classNameDiv='footer-dropdown select-important'>
 							<div className='important-select'>
-								{selectImportant.map((value,index)=>
-								<div onClick={this.getValueImportant}
-								key={value} name={value}
-								style={this.state.importantValue==value ? 
+								{selectPriority.map((priority,index)=>
+								<div onClick={this.getValuePriority}
+								key={priority} name={priority}
+								style={this.state.priorityValue==priority ? 
 								{color:'#2F80ED'}:{color:'#212020'}}>
-									<div className={this.colorImportant(index)}></div>
-									<p>{value}</p>
+									<div className={this.colorPriority(index)}></div>
+									<p>{priority}</p>
 								</div>)}
 							</div>
 						</PopupWrapper>

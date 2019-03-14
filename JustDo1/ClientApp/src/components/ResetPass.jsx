@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import {API} from '../support/constants';
+import {APIIdentity} from '../support/constants';
+import {Link} from 'react-router-dom';
 import {validatePassword} from '../support/validatePassword';
+import { StartLayout } from './StartLayout';
+import history from '../support/history';
 
 class ChangePass extends Component {
 
@@ -10,11 +13,14 @@ class ChangePass extends Component {
 			code: '',
 			password:'',
 			confPassword:'',
+			confPasswordError:'',
 			passwordError:'',
 			hiddenPass:true,
 			hiddenConf:true,
+			codeValid:false,
 			passwordValid: false,
 			confPasswordValid:false,
+			formValid:false,
 			success:true
 		}
 		this.handleUserInput = this.handleUserInput.bind(this); 
@@ -40,35 +46,29 @@ class ChangePass extends Component {
 	handleUserInput = (e) => {
 		const name = e.target.name;
 		const value = e.target.value;
-		this.setState({[name]: value}, 
-			() => {
-				if (name=='password'){
-					this.validateField(value);
-				} else {
-					this.setState({confPasswordValid:
-						(this.state.confPassword === this.state.password)},
-						 ()=>this.validateForm())
-				}
-		});
-	}
-
-	validateField(value) {
-		let error = validatePassword(value);
-		let passwordValid = (error == '' && value.length > 0) ? true:false;
-		this.setState({
-			passwordError:error,
-			passwordValid: passwordValid,
-			confPasswordValid: (this.state.confPassword === this.state.password)
-		}, this.validateForm);
-	}
-
-	validateForm() {
-		this.setState({formValid: this.state.passwordValid &&
-			this.state.confPasswordValid});
+		let obj = {...this.state};
+		obj[name] = value;
+		switch (name) {
+			case 'code':
+				obj.codeValid = obj[name].length ==6 ? true:false;
+				break;
+			case 'password':
+				obj.passwordError = validatePassword(value);
+				obj.passwordValid = obj.passwordError=='' ? true : false;
+				break;
+			case 'confPassword':
+				obj.confPasswordValid = obj.confPassword == obj.password ? true : false;
+				obj.confPasswordError = obj.confPasswordValid ? '' : 'Password do not match';
+				break;
+			default:
+				break;
+		}
+		obj.formValid = (obj.codeValid && obj.passwordValid && obj.confPasswordValid) ? true : false;
+		this.setState(obj);
 	}
 
 	sendAction(event){
-		fetch(API+'/ResetPass',
+		fetch(APIIdentity+'/ResetPass',
 		 {
 			method: 'POST',
 			headers: {
@@ -79,11 +79,10 @@ class ChangePass extends Component {
 				password:this.state.password})
 			})
 			.then(response =>{
-				console.log(response.status);
 				if (!response.ok){
 					this.setState({success:false});
 				 } else{
-					this.changePage(1);
+					history.push('/');
 				 }
 			});
 			event.preventDefault();
@@ -91,48 +90,48 @@ class ChangePass extends Component {
 
 	render() {
 		return (
-			<div className="reset-form">
-				<img alt='1' className='left-arrow'
-					onClick={()=>this.changePage(1)}
-					src="./img/ic_arrow_left.png">
-				</img>
-				<div className="reset-label">Forgot Password</div>
-				<div className="reset-description">
-					Reset code was sent to your Email. Please enter the code and create new password
+			<StartLayout>
+				<div className="reset-form">
+					<Link to='/'>
+						<img alt='1' className='left-arrow'
+							src="./img/ic_arrow_left.png"/>
+					</Link>
+					<div className="reset-label">Forgot Password</div>
+					<div className="reset-description">
+						Reset code was sent to your Email. Please enter the code and create new password
+					</div>
+					<form>
+						<input type='text' name='code'
+						 placeholder='Code' value={this.state.code}
+						 onChange={this.handleUserInput} />
+						<div className='with-eye'>
+								<input type={this.state.hiddenPass ? 'password' : 'text'}
+								 name='password' placeholder='Password'
+								 value={this.state.password} onChange={this.handleUserInput} />
+								<img alt='2' onClick={this.toggleShowPass}
+								 className={this.state.hiddenPass? 'icon-eye':'icon-eye-novis'}/>
+								<p className='texterror'>{this.state.passwordError}</p>
+						</div>
+						<div className='with-eye'>
+								<input type={this.state.hiddenConf ? 'password' : 'text'}
+								 name='confPassword' placeholder='Confirm Password'
+								 value={this.state.confPassword} onChange={this.handleUserInput} />
+								<img alt='3' onClick={this.toggleShowConf}
+								 className={this.state.hiddenConf? 'icon-eye':'icon-eye-novis'}/>
+								<p className='texterror'>
+									{this.state.confPasswordError}
+								</p>
+								<p className='validerror'>
+									{this.state.success?'':'Invalid code'}
+								</p>
+						</div>
+						<button type='submit' className='button-reset'
+							disabled={!this.state.formValid} onClick={this.sendAction}>
+							Change Password
+						</button>
+					</form>
 				</div>
-				<form>
-					<input type='text' name='code'
-						placeholder='Code' value={this.state.code}
-						onChange={this.handleUserInput} />
-					<div className='with-eye'>
-							<input type={this.state.hiddenPass ? 'password' : 'text'}
-								name='password' placeholder='Password'
-								value={this.state.password} onChange={this.handleUserInput} />
-							<img alt='2' onClick={this.toggleShowPass}
-								className={this.state.hiddenPass? 'icon-eye':'icon-eye-novis'}>
-							</img>
-							<p className='texterror'>{this.state.passwordError}</p>
-					</div>
-					<div className='with-eye'>
-							<input type={this.state.hiddenConf ? 'password' : 'text'}
-								name='confPassword' placeholder='Confirm Password'
-								value={this.state.confPassword} onChange={this.handleUserInput} />
-							<img alt='3' onClick={this.toggleShowConf}
-								className={this.state.hiddenConf? 'icon-eye':'icon-eye-novis'}>
-							</img>
-							<p className='texterror'>
-								{(this.state.confPassword === this.state.password)?'':'Password do not match'}
-							</p>
-							<p className='validerror'>
-								{this.state.success?'':'Invalid code'}
-							</p>
-					</div>
-					<button type='submit' className='button-reset'
-						disabled={!this.state.formValid} onClick={this.sendAction}>
-						Change Password
-					</button>
-				</form>
-			</div>
+			</StartLayout>
 		);
 	}
 }

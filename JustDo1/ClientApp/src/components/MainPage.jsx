@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import MainMenu from './MainMenu';
-import MainWorkplace from './MainWorkplace';
+import {MainMenu} from './MainMenu';
+import {MainWorkplace} from './MainWorkplace';
 import {TasksContext} from './TasksContext';
 import {authHeader} from '../support/jwt';
 import {notifications, alarm} from '../support/notifications';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const API = '/api/app';
+import {APITask} from '../support/constants';
 
 class MainPage extends Component {
 	constructor (props) {
@@ -55,7 +55,7 @@ class MainPage extends Component {
 	}
 
 	loadData() {
-		fetch(API+'/'+this.state.currentFilter,
+		fetch(APITask+'/'+this.state.currentFilter,
 			{
 			method: 'GET',
 			headers: authHeader()
@@ -87,12 +87,11 @@ class MainPage extends Component {
 				pauseOnHover
 				/>
 				<MainMenu selected={this.state.currentFilter}
-				 onAction={this.onAction}>
-				 </MainMenu>
+				 onAction={this.onAction}/>
 				<TasksContext.Provider 
 				 value={{tasks:tasks,dates:dates,
 				 onDelete:this.loadData, onAdd:this.loadData}}>
-				<MainWorkplace></MainWorkplace>
+				<MainWorkplace/>
 				</TasksContext.Provider>
 			</div>
 		);

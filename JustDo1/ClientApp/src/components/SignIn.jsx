@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import {withRouter} from 'react-router-dom';
-import {API} from '../support/constants';
+import {Link} from 'react-router-dom';
+import {APIIdentity} from '../support/constants';
+import {validateEmail} from '../support/validateEmail';
+import { StartLayout } from './StartLayout';
+import history from '../support/history';
 
 class SignIn extends Component {
 
@@ -9,20 +12,14 @@ class SignIn extends Component {
 		this.state = {
 			email: '',
 			password: '',
+			emailError:'',
 			emailValid: false,
-			passwordValid: false,
-			formValid: false,
 			hidden:true,
 			success:true
 		}
 		this.handleUserInput = this.handleUserInput.bind(this); 
-		this.changePage = this.changePage.bind(this);
 		this.signIn = this.signIn.bind(this);
 		this.toggleShow = this.toggleShow.bind(this);
-	}
-
-	changePage(pageValue){
-		this.props.changePage(pageValue);
 	}
 
 	toggleShow() {
@@ -30,78 +27,84 @@ class SignIn extends Component {
 	}
 
 	handleUserInput = (e) => {
+		let obj = {...this.state};
 		const name = e.target.name;
 		const value = e.target.value;
-		this.setState({[name]: value}, 
-			() => { this.validateField(name, value) });
-	}
-
-//ubrat nado,dich polnaya!
-	validateField(fieldName, value) {
-		let emailValid = this.state.emailValid;
-		if (fieldName==='email'){
-			emailValid = value.match(/^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/i);
+		obj[name] = value;
+		if (name == 'email'){
+			obj.emailValid = validateEmail(value);
+			obj.emailError = obj['emailValid'] ? '': 'This email does not exist';
 		}
-		this.setState({emailValid: emailValid});
+		this.setState(obj);
 	}
 
 	signIn(event){
-		event.preventDefault();
-		fetch(API+'/SignIn',
+		fetch(APIIdentity+'/SignIn',
 			{
 			method: 'POST',
 			headers: {
-			'Content-Type': 'application/json',
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
 			},
 			body:JSON.stringify({
 				email:this.state.email,
 				password:this.state.password})
 			})
-			.then(response => response.text())
-			.then(text =>{
+			.then(response =>{
+				return response.text();
+			}).then(text =>{
+				if (!text){
+					this.setState({success:false});
+					return;
+				}
 				localStorage.setItem('user',text);
-				this.props.history.push("/");
-		})
+				history.push('/');
+			})
+			event.preventDefault();
 	}
 
 	render() {
 		return (
-			<div className="valid-form">
-				<div className="sign">Sign in</div>
-				<form>
-					<input type='email' name='email'
-					 placeholder='E-mail' value={this.state.email}
-					 onChange={this.handleUserInput} />
-					<div className='with-eye'>
-						<input type={this.state.hidden ? 'password' : 'text'}
-						 name='password' placeholder='Password'
-						 value={this.state.password}
-						 onChange={this.handleUserInput} />
-						<img alt='1' onClick={this.toggleShow}
-						 className={this.state.hidden? 'icon-eye':'icon-eye-novis'}>
-						</img>
-						<p className='validerror'>
-							{this.state.success?'':'Invalid credentials'}
-						</p>
+			<StartLayout>
+				<div className='valid-form'>
+					<div className="sign">Sign in</div>
+					<form>
+						<div className='with-eye'>
+							<input type='email' name='email'
+							placeholder='E-mail' value={this.state.email}
+							onChange={this.handleUserInput} />
+							<p className='texterror'>{this.state.emailError}</p>
+						</div>
+						<div className='with-eye'>
+							<input type={this.state.hidden ? 'password' : 'text'}
+							name='password' placeholder='Password'
+							value={this.state.password}
+							onChange={this.handleUserInput} />
+							<img alt='1' onClick={this.toggleShow}
+							className={this.state.hidden? 'icon-eye':'icon-eye-novis'}/>
+							<p className='validerror'>
+								{this.state.success?'':'Invalid credentials'}
+							</p>
+						</div>
+						<div className="forgot-link">
+							<Link to='/forget-pass'>Forgot password?</Link>
+						</div>
+						<button className="button-submit" type='submit'
+						disabled={!this.state.emailValid} onClick={this.signIn}>
+							Sign In
+						</button>
+						<div className="signup-link">
+							<Link to='/signup'>Sign up</Link>
+						</div>
+					</form>
+					<div className="start-footer">
+						By accessing your account, you agree to our<br></br>
+						<Link to='/terms-conditions'>Terms conditions</Link> and <Link to='/privacy-policy'>
+						Privacy Policy</Link>
 					</div>
-					<div className="forgot-link">
-						<a onClick={()=> this.changePage(5)}>Forgot password?</a>
-					</div>
-					<button className="button-submit" type='submit'
-					 disabled={!this.state.emailValid} onClick={this.signIn}>
-						Sign In
-					</button>
-					<div className="signup-link">
-						<a onClick={()=>this.changePage(4)}>Sign up</a>
-					</div>
-				</form>
-				<div className="start-footer">
-					By accessing your account, you agree to our<br></br>
-					<a onClick={()=> this.changePage(2)}>Terms conditions</a> and 
-					<a onClick={()=> this.changePage(3)}>Privacy Policy</a>
 				</div>
-			</div>
+			</StartLayout>
 		);
 	}
 }
-export default withRouter(SignIn);
+export default SignIn;
