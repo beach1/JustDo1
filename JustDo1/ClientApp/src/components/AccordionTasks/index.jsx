@@ -9,7 +9,6 @@ class AccordionTasks extends Component {
         this.state = {
             isOpen : false
         }
-        this.changeVisible = this.changeVisible.bind(this);
     }
 
     changeVisible = () => {

@@ -14,7 +14,6 @@ class TasksContainer extends Component {
 		this.state = {
 			listChecked:[]
 		}
-		this.listTasks=this.listTasks.bind(this);
 		this.addChecked=this.addChecked.bind(this);
 		this.removeCheckedTasks=this.removeCheckedTasks.bind(this);
 	}

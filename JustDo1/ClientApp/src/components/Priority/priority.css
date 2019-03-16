@@ -1,0 +1,24 @@
+.circle{
+    width: 12px!important;
+    height: 12px!important;
+    border-radius: 50%;
+    background-color: #BBBBC7;
+    margin-left: 2.2vw;
+    cursor: pointer;
+}
+
+.create-panel .red-priority {
+    background-color: #F24A3C;
+}
+
+.create-panel .yellow-priority {
+    background-color: #F7C920;
+}
+
+.create-panel .blue-priority {
+    background-color: #2F80ED;
+}
+
+.create-panel .grey-priority {
+    background-color: #C9C9C9;
+}

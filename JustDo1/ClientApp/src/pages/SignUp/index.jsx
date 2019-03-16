@@ -28,8 +28,7 @@ class SignUp extends Component {
 			confPasswordValid:false,
 			formValid: false,
 			success:true,
-		}
-		this.handleUserInput = this.handleUserInput.bind(this); 
+		} 
 		this.signUp=this.signUp.bind(this);
 
 	}

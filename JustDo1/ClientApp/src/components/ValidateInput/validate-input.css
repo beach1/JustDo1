@@ -5,7 +5,7 @@
 
 .input-field .icon-eye {
     position:absolute;
-    content: url('../../img/eye_visible.png');
+    content: url('/img/eye_visible.png');
     right:10px;
     top:8px;
     cursor: pointer;
@@ -13,7 +13,7 @@
 
 .input-field .icon-eye-novis {
     position:absolute;
-    content: url('../../img/eye_unvis.png');
+    content: url('/img/eye_unvis.png');
     right:10px;
     top:8px;
     cursor: pointer;

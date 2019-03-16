@@ -20,7 +20,6 @@ class ForgetPass extends Component {
 			emailValid: false,
 			success:true
 		}
-		this.handleUserInput = this.handleUserInput.bind(this); 
 		this.sendAction=this.sendAction.bind(this);
 	}
 

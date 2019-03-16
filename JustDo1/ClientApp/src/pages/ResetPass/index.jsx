@@ -27,7 +27,6 @@ class ChangePass extends Component {
 			formValid:false,
 			success:true
 		}
-		this.handleUserInput = this.handleUserInput.bind(this); 
 		this.sendAction=this.sendAction.bind(this);
 
 	}

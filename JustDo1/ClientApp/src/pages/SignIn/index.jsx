@@ -22,7 +22,6 @@ class SignIn extends Component {
 			hidden:true,
 			success:true
 		}
-		this.handleUserInput = this.handleUserInput.bind(this); 
 		this.signIn = this.signIn.bind(this);
 	}
 

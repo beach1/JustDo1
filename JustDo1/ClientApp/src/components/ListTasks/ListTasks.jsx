@@ -11,7 +11,6 @@ class ListTasks extends Component {
 			listChecked:[]
 
 		}
-		this.changeVisible=this.changeVisible.bind(this);
 	}
 
 	changeVisible = () => {

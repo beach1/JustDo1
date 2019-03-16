@@ -26,7 +26,6 @@ class CreatePanel extends Component {
 		this.changeDate = this.changeDate.bind(this);
 		this.getValueAlarm=this.getValueAlarm.bind(this);
 		this.getValuePriority=this.getValuePriority.bind(this);
-		this.handleUserInput=this.handleUserInput.bind(this);
 		this.onSubmit=this.onSubmit.bind(this);
 	}
 

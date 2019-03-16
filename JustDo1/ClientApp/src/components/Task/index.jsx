@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {authHeader} from '../../support/jwt';
-import {alarmToString,priorityToString} from '../../support/switchcase';
 import {APITask} from '../../support/constants';
 import moment from 'moment';
 import './task.css';
+
+import {Priority} from '../Priority';
 
 class Task extends Component {
     constructor (props) {
@@ -55,7 +56,7 @@ class Task extends Component {
                         onBlur={this.updateTask}
                     />
                     <div className='task-status'>
-                        {priorityToString(task.priority)}
+                        <Priority priority={task.priority}/>
                         <img
                             alt='1'
                             src='./img/ic_clock.png'
@@ -65,7 +66,7 @@ class Task extends Component {
                             alt='1'
                             src='./img/ic_alarm.png'
                         />
-                        {alarmToString(task.alarm)}
+                        <p>{task.alarm}</p>
                     </div>
                 </div>
             </div>
