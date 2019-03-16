@@ -8,7 +8,7 @@ namespace JustDo1.Model
 {
     public class TaskRepository : RepositoryBase, ITaskRepository
     {
-        private readonly string taskTable = "JustDo.dbo.Tasks";
+        private readonly string taskTable = "dbo.Tasks";
         private readonly string allTableFields = "SELECT *";
         private readonly string createTaskKey = "(Name,Description,Date,Priority,Alarm)";
 
@@ -60,7 +60,8 @@ namespace JustDo1.Model
                 connection.Open();
                 var priority = (int) task.Priority;
                 var alarm = (int) task.Alarm;
-                string sqlExpression = $"UPDATE {taskTable} SET Name=\'{task.Name}\'," +
+                string sqlExpression = $"SET DATEFORMAT dmy\n" +
+                                       $"UPDATE {taskTable} SET Name=\'{task.Name}\'," +
                     $" Description=\'{task.Description}\', Date=\'{task.Date}\'," +
                     $" Alarm=\'{alarm}\', Priority={priority} WHERE Id=\'{task.Id}\'";
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
@@ -74,7 +75,8 @@ namespace JustDo1.Model
                 connection.Open();
                 var priority = (int)task.Priority;
                 var alarm = (int)task.Alarm;
-                string sqlExpression = $"INSERT INTO {taskTable} {createTaskKey} VALUES (\'{task.Name}\'," +
+                string sqlExpression = $"SET DATEFORMAT dmy\n" +
+                                       $"INSERT INTO {taskTable} {createTaskKey} VALUES (\'{task.Name}\'," +
                     $"\'{task.Description}\',\'{task.Date}\'," +
                     $"{priority},{alarm})";
                 SqlCommand command = new SqlCommand(sqlExpression, connection);

@@ -6,7 +6,7 @@ namespace JustDo1.Model
     public class IdentityRepository : RepositoryBase, IIdentityRepository
     {
 
-        private string credentialsTable = "JustDo.dbo.Credentials";
+        private string credentialsTable = "dbo.Credentials";
 
         public IdentityRepository(IConfiguration configuration) : base(configuration)
         {

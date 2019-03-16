@@ -49,7 +49,7 @@ class CreatePanel extends Component {
 		pad(state.date.getMonth()+1,2)+'-'+pad(state.date.getDate(),2)
 		+' '+ state.hour+	':'+state.minute;
 
-		let task = {name: state.name, description:'Добавьте описание',
+		let task = {name: state.name, description:'Complete description...',
 		date: date, priority: state.priorityValue, alarm: state.alarmValue}
 		fetch(APITask+'/Create', {
             method: 'put',
