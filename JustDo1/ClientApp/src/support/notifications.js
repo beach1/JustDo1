@@ -6,7 +6,7 @@ export function notifications(tasks){
     let a = moment();
     for (let task of tasks){
         let b = moment(task.date+' '+ task.time);
-        if (b.diff(a, 'days') ==0 && b.diff(a,'minutes')>0){
+        if (b.diff(a, 'days') ===0 && b.diff(a,'minutes')>0){
             let obj={name:task.name,date:task.date+' '+task.time,alarm:task.alarm}
             obj.alarm = alarmToMinutes(obj.alarm);
             todayNotifications.push(obj);

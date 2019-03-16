@@ -1,0 +1,27 @@
+.submit-button {
+	display: flex;
+	height:15vh;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.submit-button button {
+    margin-bottom: 5vh;
+    cursor: pointer;
+    width: 257px;
+    border-radius: 26px;
+    background: linear-gradient(238deg, #2F80ED, #56CCF2);
+    height: 6vh;
+    color:#FFF;
+    border: none;
+    font-size: 18px;
+}
+
+.submit-error {
+    z-index: 5;
+    right:0px;
+    font-size: 12px;
+    color: #F24A3C;
+    position: relative;
+}

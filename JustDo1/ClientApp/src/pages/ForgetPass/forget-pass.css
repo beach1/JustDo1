@@ -1,0 +1,16 @@
+.forget-description{
+    text-align: center;
+    color:#BBBBC7;
+    margin-bottom:13vh;
+}
+
+.forget-arrow {
+    margin-top:6.5vh;
+    margin-left:3.7vw;
+    align-self: flex-start;
+}
+
+
+.forget-headline {
+    margin-top: 16vh;
+}

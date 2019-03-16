@@ -86,15 +86,15 @@ namespace JustDo1.Model
         {
             using (SqlConnection connection = CreateNewConnection())
             {
-                var sqlExpression = type == 0 ? $"{allTableFields} FROM {taskTable}" : $"{allTableFields} FROM {taskTable} WHERE Priority=\'{type}\'";
+                var sqlExpression = type == 5 ? $"{allTableFields} FROM {taskTable}" : $"{allTableFields} FROM {taskTable} WHERE Priority=\'{type}\'";
 
                 connection.Open();
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
                 SqlDataReader reader = command.ExecuteReader();
                 List<TaskModel> list = new List<TaskModel>();
-                if (reader.HasRows) // если есть данные
+                if (reader.HasRows)
                 {
-                    while (reader.Read()) // построчно считываем данные
+                    while (reader.Read())
                     {
                         var user = new TaskModel
                         {

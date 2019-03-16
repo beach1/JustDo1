@@ -1,0 +1,8 @@
+.container-li {
+    margin-bottom: 5vh;
+    font-family: "SF UI Text";
+    font-size: 20px;
+    overflow: hidden;
+    color:#BBBBC7;
+    cursor: pointer; 
+}

@@ -1,0 +1,59 @@
+#root {
+    height: 100%;
+    width: 100%;
+}
+
+.content-align-end {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    width: 53%;
+    font-size: 16px;
+    font-family: "SF UI Text";
+}
+
+.content-align-start {
+    display: flex;
+	justify-content: flex-start;
+	align-items: center;
+    flex-direction: column;
+    width: 53%;
+    font-size: 16px;
+    font-family: "SF UI Text";
+}
+
+.content-align-end form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 15vh;
+}
+
+.headline {
+    text-align: center;
+    font-family: Comfortaa;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.content-align-start .headline {
+    text-align: center;
+    font-family: Comfortaa;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.left-arrow {
+    width:9px;
+    height:15px;
+    cursor: pointer;
+}
+
+.content-align-end a {
+    text-decoration: underline;
+}   
+.content-align-end .footer {
+    text-align: center;
+    margin-bottom: 4vh;
+    color:#BBBBC7;
+}

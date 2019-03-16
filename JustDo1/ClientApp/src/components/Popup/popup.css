@@ -1,0 +1,39 @@
+.content-header {
+    position: absolute;
+    top:3.4vh;
+    right:1.9vw;
+    width:37px;
+    height: 37px;
+    border-radius: 50%;
+    background: linear-gradient(18deg, #56CCF2, #2F80ED);
+    cursor: pointer;
+}
+
+.header-menu {
+    width: 120px;
+    height: 70px;
+    position: absolute;
+    top:9vh;
+    right:1.9vw;
+    border: 1px solid black;
+    border-radius: 8px;
+    z-index:5;
+}
+
+.header-menu p {
+    margin-top: 13px;
+    margin-left:5px;
+    font-family: "SF UI Text";
+    font-weight: 500;
+    font-size: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+.content-header img {
+    position: absolute;
+    height: 23px;
+    width: 5px;
+    right:16px;
+    top:7px;
+    cursor: pointer;
+}

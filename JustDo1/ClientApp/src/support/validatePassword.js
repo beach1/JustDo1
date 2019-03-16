@@ -1,5 +1,5 @@
 export function validatePassword(value){
-    if (value.length==0) {
+    if (value.length===0) {
         return '';
     } else if (!value.match(/^[A-Za-z\d@$!%*?&]{8,}/i)){
         return 'The password must be at least 8 characters';

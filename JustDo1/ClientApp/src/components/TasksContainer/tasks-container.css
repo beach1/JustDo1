@@ -1,0 +1,21 @@
+.tasks-container {
+    height: 74.4vh;
+    overflow-y: auto;
+}
+
+.tasks-container ul {
+    padding: 0px;
+}
+
+.container-li p>img{
+    margin-left: 10px;
+}
+
+.trash{
+    position: absolute;
+    right:5vw;
+    top:20vh;
+}
+.hidden-trash{
+    display: none;
+}

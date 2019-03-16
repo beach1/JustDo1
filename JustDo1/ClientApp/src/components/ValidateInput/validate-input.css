@@ -1,0 +1,45 @@
+.input-field {
+    position:relative;
+    font-family: "SF UI Text";
+}
+
+.input-field .icon-eye {
+    position:absolute;
+    content: url('../../img/eye_visible.png');
+    right:10px;
+    top:8px;
+    cursor: pointer;
+}
+
+.input-field .icon-eye-novis {
+    position:absolute;
+    content: url('../../img/eye_unvis.png');
+    right:10px;
+    top:8px;
+    cursor: pointer;
+}
+
+.input-field .text-error {
+    top:35px;
+    right: 0;
+    z-index: 5;
+    font-size: 12px;
+    color: #F24A3C;
+    position: absolute;
+}
+
+.input-field input {
+    border:none;
+    border-bottom: 1px solid #B4B4B4;
+    width:427px;
+    padding-bottom: 8px;
+    padding-left: 5px;
+    margin-bottom: 7vh;
+    font-family: "SF UI Text";
+}
+.input-field input::placeholder {
+    color:#BBBBC7;
+}
+.input-field input:focus {
+    outline: none;
+}

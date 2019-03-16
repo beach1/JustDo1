@@ -1,0 +1,17 @@
+.reset-description{
+    display: flex;
+    align-self: center;
+    text-align: center;
+    color:#BBBBC7;
+    margin-bottom:10vh;
+    width: 27vw;
+}
+.reset-headline {
+    margin-bottom: 2.6vh;
+}
+
+.content-align-end .reset-arrow {
+    margin-bottom:5.5vh;
+    margin-left:3.7vw;
+    align-self: flex-start;
+}

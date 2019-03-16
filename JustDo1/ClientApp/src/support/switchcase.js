@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 export function alarmToString(alarm){
     return <p>{alarm}</p>
@@ -7,13 +7,13 @@ export function alarmToString(alarm){
 export function priorityToString(priority){
     switch(priority){
         case 'Urgently':
-            return <div className='importance'><div className='curcle red-important'></div>Urgently priority</div>
+            return <div className='priority'><div className='circle red-priority'></div>Urgently priority</div>
         case 'Important':
-            return <div className='importance'><div className='curcle yellow-important'></div>Important priority</div>
+            return <div className='priority'><div className='circle yellow-priority'></div>Important priority</div>
         case 'Normal':
-            return <div className='importance'><div className='curcle blue-important'></div>Normal priority</div>
+            return <div className='priority'><div className='circle blue-priority'></div>Normal priority</div>
         case 'Neutral':
-            return <div className='importance'><div className='curcle grey-important'></div>Neutral priority</div>
+            return <div className='priority'><div className='circle grey-priority'></div>Neutral priority</div>
         default:
             return null;
     }

@@ -1,33 +1,31 @@
 import React, { Component } from 'react';
 import {Router,Switch,Route} from 'react-router-dom';
 import history from './support/history';
-import MainPage from './components/MainPage';
+
 import {checkAuth} from './support/jwt';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import {Terms} from './components/Terms';
-import {PrivacyPolicy} from './components/PrivacyPolicy';
-import ForgetPass from './components/ForgetPass';
-import ResetPass from './components/ResetPass';
-import ChangePassword from './components/ChangePassword';
+import ChangePassword from './pages/ChangePassword/index';
+import ForgetPass from './pages/ForgetPass';
+import Main from './pages/Main';
+import {PrivacyPolicy} from './pages/PrivacyPolicy'
+import ResetPass from './pages/ResetPass';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import {TermsAndConditions} from './pages/TermsAndConditions';
 
 
 class App extends Component {
-	constructor (props) {
-	super(props);
-	}
 
 	render() {
 		return (
 			<Router history={history}>
 				<Switch>
-					<Route path="/signin" exact render={()=> checkAuth() ? <MainPage></MainPage>: <SignIn/>}/>
-					<Route path="/" exact render={()=> checkAuth() ? <MainPage></MainPage>: <SignIn/>}/>
-					<Route path="/signup" exact render={()=> checkAuth() ? <MainPage/>: <SignUp/>}/>
-					<Route path="/privacy-policy" exact render={()=> checkAuth() ? <MainPage/>: <PrivacyPolicy/>}/>
-					<Route history={history} path="/terms-conditions" exact render={()=> checkAuth() ? <MainPage/>: <Terms/>}/>
-					<Route path="/forget-pass" exact render={()=> checkAuth() ? <MainPage/>: <ForgetPass/>}/>
-					<Route path="/reset-pass" exact render={()=> checkAuth() ? <MainPage/>: <ResetPass/>}/>
+					<Route path="/signin" exact render={()=> checkAuth() ? <Main></Main>: <SignIn/>}/>
+					<Route path="/" exact render={()=> checkAuth() ? <Main></Main>: <SignIn/>}/>
+					<Route path="/signup" exact render={()=> checkAuth() ? <Main/>: <SignUp/>}/>
+					<Route path="/privacy-policy" exact render={()=> checkAuth() ? <Main/>: <PrivacyPolicy/>}/>
+					<Route path="/terms-conditions" exact render={()=> checkAuth() ? <Main/>: <TermsAndConditions/>}/>
+					<Route path="/forget-pass" exact render={()=> checkAuth() ? <Main/>: <ForgetPass/>}/>
+					<Route path="/reset-pass" exact render={()=> checkAuth() ? <Main/>: <ResetPass/>}/>
 					<Route path="/change-pass" exact render={()=> checkAuth() ? <ChangePassword/>: <SignIn/>}/>
 				</Switch>
 			</Router>
