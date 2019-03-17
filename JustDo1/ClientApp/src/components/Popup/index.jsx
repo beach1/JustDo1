@@ -10,6 +10,7 @@ class Popup extends Component {
         }
         this.handleClick=this.handleClick.bind(this);
         this.onImageClick=this.onImageClick.bind(this);
+        this.onDivClick=this.onDivClick.bind(this);        
     }
 
     componentDidMount(){
@@ -27,13 +28,23 @@ class Popup extends Component {
         this.setState({isOpen:false});
     }
 
-    onImageClick(){
+    onImageClick() {
+        if (this.props.wrappedImage) {
+            return;
+        }
+        this.setState((prevState)=>({isOpen:!prevState.isOpen}));
+    }
+    onDivClick() {
+        if (!this.props.wrappedImage) {
+            return;
+        }
         this.setState((prevState)=>({isOpen:!prevState.isOpen}));
     }
     
-    render(){
+    render() {
         return(
 			<div
+                onClick={this.onDivClick}
 				className={this.props.classNameDiv}
 				ref={(ref)=>this.node=ref}
 			>
@@ -49,4 +60,8 @@ class Popup extends Component {
     }
 }
 export default Popup
+
+Popup.defaultProps = {
+    wrappedImage:false
+  };
 

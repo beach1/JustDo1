@@ -4,5 +4,8 @@
     font-size: 20px;
     overflow: hidden;
     color:#BBBBC7;
-    cursor: pointer; 
+}
+
+.container-li >p {
+    cursor: pointer;
 }

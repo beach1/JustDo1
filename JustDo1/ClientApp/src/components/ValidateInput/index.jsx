@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import './validate-input.css'
+import styles from './validate-input.module.css'
 
 
 export const ValidateInput = (props) => {
@@ -7,7 +7,7 @@ export const ValidateInput = (props) => {
 	const [hidden, setHidden] = useState(true);
 
 	return(
-		<div className='input-field'>
+		<div className={styles['input-field']}>
 			<input
                 type={hidden ? props.type : 'text'}
 				{...restProps}
@@ -16,11 +16,11 @@ export const ValidateInput = (props) => {
 				<img
 					alt='1'
 					onClick={() => setHidden(hidden => !hidden)}
-					className={hidden? 'icon-eye':'icon-eye-novis'}
+					className={hidden? styles['icon-eye']:styles['icon-eye-novis']}
 				/>
 				: null
 			}
-			<p className='text-error'>
+			<p className={styles['text-error']}>
 				{props.error}
 			</p>
 		</div>

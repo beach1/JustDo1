@@ -1,9 +1,9 @@
 import React from 'react';
-import './layout.css';
+import styles from './layout.module.css';
 export const Layout = (props) => {
     return (
-    <div className='start'>
-		<div className="side-background">
+    <div className={styles.start}>
+		<div className={styles['side-background']}>
             <img
                 alt='1'
                 src='./img/logo.png'

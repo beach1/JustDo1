@@ -112,6 +112,7 @@ class Main extends Component {
 				>
 					<div className='main-content'>
 						<Popup
+                            wrappedImage={true}
 							classNameDiv='content-header'
 							className=''
 							src='./img/ic_menu.png'

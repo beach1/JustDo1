@@ -10,7 +10,7 @@
     align-items: flex-start;
 }
 
-.menu p {
+.menu > p:nth-child(n+2) {
     cursor: pointer;
 }
 

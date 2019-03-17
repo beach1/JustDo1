@@ -17,6 +17,9 @@
     border: none;
     font-size: 18px;
 }
+button:focus {
+    outline: none; 
+}
 
 .submit-error {
     z-index: 5;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {authHeader} from '../../support/jwt';
 import {APITask} from '../../support/constants';
 import moment from 'moment';
+import TextareaAutosize from 'react-autosize-textarea';
 import './task.css';
 
 import {Priority} from '../Priority';
@@ -49,7 +50,8 @@ class Task extends Component {
                     <p>
                         {task.name}
                     </p>
-                    <textarea
+                    <TextareaAutosize
+                        ref={(ref)=>{this.node=ref}}
                         name='description'
                         defaultValue={this.state.description}
                         onChange={this.onInputChange}
