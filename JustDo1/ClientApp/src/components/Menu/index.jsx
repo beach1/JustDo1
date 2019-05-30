@@ -9,6 +9,7 @@ export const Menu = (props) => (
 			<p>Priority</p>
 			<img
 				src='./img/arrow_down.png'
+				style={{display: 'none'}}
 				alt='1'
 			/>
 		</div>
@@ -42,10 +43,10 @@ export const Menu = (props) => (
 		>
 			Neutral
 		</p>
-		<img
+		{/*<img
 			className='add-img'
 			src='img/ic_add.png'
 			alt='2'
-		/>
+		/>*/}
 	</div>
 );
