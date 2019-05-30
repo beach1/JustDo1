@@ -14,6 +14,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import TasksContainer from '../../components/TasksContainer';
 import {Menu} from '../../components/Menu';
 import Popup from '../../components/Popup';
+import { PriorityIcon } from '../../components/Priority';
 import CreatePanel from '../../components/CreatePanel'
 import moment from 'moment';
 
@@ -21,17 +22,37 @@ class Main extends Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			tasks:[],
-			todayNotifications:[],
-			currentFilter:5
+			tasks: [],
+			todayNotifications: [],
+			currentFilter: 5
 		}
 		this.loadData=this.loadData.bind(this);
 		this.onAction=this.onAction.bind(this);
 	}
+
+	renderNotifyFromTask = (task) => {
+		return (<React.Fragment>
+			<div style={{ display: 'flex', alignItems: 'center' }}>
+				<PriorityIcon
+					priority={task.priority}
+					style={{ marginLeft: 0, marginRight: '10px' }}
+				/>
+				<span style={{fontFamily: '"SF UI Text", Helvetica, Arial', fontSize: '14px', fontWeight: 'bold', color: '#000000' }}>
+					{task.date.format('HH:mm')}
+				</span>
+			</div>
+			<p style={{fontFamily: '"SF UI Text", Helvetica, Arial', fontSize: '14px', fontWeight: 'bold', color: '#000000' }}>
+				{task.name}
+			</p>
+			<p style={{fontFamily: '"SF UI Text", Helvetica, Arial', fontSize: '12px', color: '#BBBBC7' }}>
+				{task.description}
+			</p>
+		</React.Fragment>);
+	}
   
-	notify = (task) => toast(`🦄 Задача: ${task.name} - истекает срок выполнения!`, {
-		position: "top-left",
-		autoClose: 5000,
+	notify = (task) => toast(this.renderNotifyFromTask(task), {
+		position: "top-right",
+		autoClose: 5500,
 		hideProgressBar: false,
 		closeOnClick: true,
 		pauseOnHover: true,
@@ -49,26 +70,21 @@ class Main extends Component {
 
 		//Check notifications by using interval (1 min)
 		this.interval = setInterval(() => {
-			console.log('--- interval In')
-			console.log(this.state.todayNotifications);
 			let alarming = alarm(this.state.todayNotifications);
-			console.log(alarming);
 			
 			for (let task of alarming.nowNotifications){
 				this.notify(task);
 			}
 
 			if (alarming.nowNotifications.length > 0){
-				console.log(alarming.nowNotifications);
-				this.setState({todayNotifications:alarming.remainTasks})
+				this.setState({ todayNotifications: alarming.remainTasks })
 			}
-			console.log('--- interval Out')
-		}, 1000);
+		}, 10000);
 	}
 
-//filtering by priority
+	//filtering by priority
 	onAction(type){
-		this.setState({currentFilter:type});
+		this.setState({ currentFilter: type });
 	}
 		
 	onSignOut(){

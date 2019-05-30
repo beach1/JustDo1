@@ -13,14 +13,11 @@ export function notifications(tasks) {
 		console.log('is after now: ' + date.isAfter(now));
 
 		if (date.isSame(now, 'day') && date.isAfter(now)) {
-
-			let obj = {
-				name: task.name,
+			array.push({
+				...task,
 				date: date,
 				alarm: alarmToMinutes(task.alarm)
-			}
-
-			array.push(obj);
+			});
 		}
 	}
 
