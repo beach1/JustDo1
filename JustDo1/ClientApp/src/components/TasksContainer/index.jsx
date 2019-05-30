@@ -7,6 +7,7 @@ import './tasks-container.css';
 
 import Task from '../Task';
 import AccordionTasks from '../AccordionTasks';
+import moment from 'moment';
 
 class TasksContainer extends Component {
 	constructor (props) {
@@ -46,13 +47,16 @@ class TasksContainer extends Component {
 			<AccordionTasks
 				date={date}
 			>
-				{value.tasks.filter((task)=> task.date === date).map((task)=> (
-					<Task
-						checkedTask={(id)=>this.addChecked(id)}
-						key={task.id}
-						task={task}
-					/>
-				))}	
+				{value.tasks
+					.filter(task => moment(task.date, 'DD.MM.YYYY').isSame(moment(date, 'DD.MM.YYYY'), 'day'))
+					.map(task => (
+						<Task
+							checkedTask={(id)=>this.addChecked(id)}
+							key={task.id}
+							task={task}
+						/>
+					))
+				}	
             </AccordionTasks>
 		)
 	);

@@ -1,3 +1,6 @@
+
+import './main.css';
+
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
@@ -6,13 +9,13 @@ import {authHeader} from '../../support/jwt';
 import {notifications, alarm} from '../../support/notifications';
 import {APITask} from '../../support/constants';
 import 'react-toastify/dist/ReactToastify.css';
-import './main.css';
 
 import { ToastContainer, toast } from 'react-toastify';
 import TasksContainer from '../../components/TasksContainer';
 import {Menu} from '../../components/Menu';
 import Popup from '../../components/Popup';
 import CreatePanel from '../../components/CreatePanel'
+import moment from 'moment';
 
 class Main extends Component {
 	constructor (props) {
@@ -43,16 +46,24 @@ class Main extends Component {
 
 	componentDidMount(){
 		this.loadData();
-//Check notifications by using interval (1 min)
-		this.interval=setInterval(()=>{
+
+		//Check notifications by using interval (1 min)
+		this.interval = setInterval(() => {
+			console.log('--- interval In')
+			console.log(this.state.todayNotifications);
 			let alarming = alarm(this.state.todayNotifications);
+			console.log(alarming);
+			
 			for (let task of alarming.nowNotifications){
 				this.notify(task);
 			}
+
 			if (alarming.nowNotifications.length > 0){
+				console.log(alarming.nowNotifications);
 				this.setState({todayNotifications:alarming.remainTasks})
 			}
-		}, 60000);
+			console.log('--- interval Out')
+		}, 1000);
 	}
 
 //filtering by priority
@@ -72,18 +83,26 @@ class Main extends Component {
 			})
 			.then(response => response.json())
 			.then(data => {
-				let todayNotifications=notifications(data);
-				this.setState({tasks:data,
-				todayNotifications:todayNotifications})
+				let todayNotifications = notifications(data);
+				console.log('todayNotifications: ' + JSON.stringify(todayNotifications));
+
+				this.setState({
+					tasks: data.map(task => ({
+						...task,
+						date: moment(task.date)
+					})),
+					todayNotifications
+				})
 			})
 	}
 
 	render() {
 		
-		let {tasks}=this.state;
-		let dates = [...new Set(tasks.map(task => task.date))];
-		dates.sort((a,b)=>new Date(a)-new Date(b));
-		tasks.sort((a,b)=>new Date('1970-01-01T' + a.time + 'Z')-new Date('1970-01-01T' + b.time + 'Z'));
+		let { tasks } = this.state;
+		let dates = [...new Set(tasks.map(task => moment(task.date).format('DD.MM.YYYY')))];
+
+		dates.sort((a,b) => moment(a, 'DD.MM.YYYY').isAfter(moment(b, 'DD.MM.YYYY')));
+		tasks.sort((a,b) => moment(a.date).isAfter(moment(b.date)));
 		
 		return (
 			<div className="main">

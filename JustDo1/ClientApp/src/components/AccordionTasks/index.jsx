@@ -23,7 +23,7 @@ class AccordionTasks extends Component {
                         onClick={this.changeVisible}
                         tabIndex='-1'
                     >
-                        {moment(this.props.date).format("dddd, MMMM Do YYYY")}
+                        {moment(this.props.date, 'DD.MM.YYYY').format("dddd, MMMM Do YYYY")}
                         <img
                             src={this.state.isOpen ?'./img/ic_arrow_up_grey.png':'./img/ic_arrow_down.png'}
                             alt='1'
