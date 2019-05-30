@@ -8,7 +8,7 @@ namespace JustDo1.Model
 {
     public class TaskRepository : RepositoryBase, ITaskRepository
     {
-        private readonly string taskTable = "JustDo.dbo.Tasks";
+        private readonly string taskTable = "dbo.Tasks";
         private readonly string allTableFields = "SELECT *";
         private readonly string createTaskKey = "(Name,Description,Date,Priority,Alarm)";
 
@@ -86,7 +86,9 @@ namespace JustDo1.Model
         {
             using (SqlConnection connection = CreateNewConnection())
             {
-                var sqlExpression = type == 5 ? $"{allTableFields} FROM {taskTable}" : $"{allTableFields} FROM {taskTable} WHERE Priority=\'{type}\'";
+                var sqlExpression = type == 5
+	                ? $"{allTableFields} FROM {taskTable}" 
+	                : $"{allTableFields} FROM {taskTable} WHERE Priority=\'{type}\'";
 
                 connection.Open();
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
@@ -96,7 +98,7 @@ namespace JustDo1.Model
                 {
                     while (reader.Read())
                     {
-                        var user = new TaskModel
+						var task = new TaskModel
                         {
                             Id = (Guid)reader["id"],
                             Name = (string)reader["name"],
@@ -105,7 +107,7 @@ namespace JustDo1.Model
                             Priority = (Priority)reader["priority"],
                             Alarm = (Alarm)reader["alarm"]
                         };
-                        list.Add(user);
+                        list.Add(task);
                     }
 
                     reader.Close();
