@@ -8,9 +8,6 @@ export function notifications(tasks) {
 
 	for (let task of tasks) {
 		let date = moment(task.date);
-		console.log(date.format('DD.MM.YYYY HH:mm:ss'))
-		console.log('is same day: ' + date.isSame(now, 'day'));
-		console.log('is after now: ' + date.isAfter(now));
 
 		if (date.isSame(now, 'day') && date.isAfter(now)) {
 			array.push({
@@ -26,19 +23,19 @@ export function notifications(tasks) {
 
 function alarmToMinutes(value) {
 	switch (value) {
-		case 1:
+		case '5 min.':
 			return 5;
-		case 2:
+		case '10 min.':
 			return 10;
-		case 3:
+		case '30 min.':
 			return 30;
-		case 4:
+		case '1 hour':
 			return 60;
-		case 5:
+		case '3 hours':
 			return 180;
-		case 6:
+		case '1 day':
 			return 1440;
-		case 7:
+		case '1 week':
 			return 10080;
 		default:
 			break;
@@ -48,8 +45,8 @@ function alarmToMinutes(value) {
 export function alarm(tasks) {
 	let now = moment();
 
-	let remainTasks = tasks.filter(task => moment(task.date).isAfter(now));
-	let nowNotifications = tasks.filter(task => moment(task.date).isSameOrBefore(now));
+	let remainTasks = tasks.filter(task => moment(task.date).diff(now, 'minutes') >= task.alarm);
+	let nowNotifications = tasks.filter(task => moment(task.date).diff(now, 'minutes') <= task.alarm);
 
 	return { nowNotifications, remainTasks };
 }

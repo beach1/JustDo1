@@ -100,7 +100,6 @@ class Main extends Component {
 			.then(response => response.json())
 			.then(data => {
 				let todayNotifications = notifications(data);
-				console.log('todayNotifications: ' + JSON.stringify(todayNotifications));
 
 				this.setState({
 					tasks: data.map(task => ({
