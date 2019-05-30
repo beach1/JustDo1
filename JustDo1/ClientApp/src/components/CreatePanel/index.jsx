@@ -43,31 +43,37 @@ class CreatePanel extends Component {
 
 	onSubmit(contextValue){
 		if (!this.state.name){ return }
-		let state=this.state;
+		let state = this.state;
 
-		let date = state.date.getFullYear()+'-'+
-		pad(state.date.getMonth()+1,2)+'-'+pad(state.date.getDate(),2)
-		+' '+ state.hour+	':'+state.minute;
+		let date = state.date.getFullYear() + '-'
+			+ pad(state.date.getMonth() + 1, 2) + '-' + pad(state.date.getDate(), 2)
+			+ ' ' + state.hour + ':' + state.minute;
 
-		let task = {name: state.name, description:'Complete description...',
-		date: date, priority: state.priorityValue, alarm: state.alarmValue}
+		let task = {
+			name: state.name,
+			description:'Complete description...',
+			date: date,
+			priority: state.priorityValue,
+			alarm: state.alarmValue
+		}
+
 		fetch(APITask+'/Create', {
             method: 'put',
 			headers: authHeader(),
             body: JSON.stringify(task)
-		}).then(()=>contextValue.onAdd());
+		}).then(contextValue.onAdd);
 
-		this.setState({initialState});
+		this.setState({ ...initialState });
 	}
 
 	getValueAlarm(e){
-		let valueAlarm=e.currentTarget.textContent;
-		this.setState({alarmValue:valueAlarm});
+		let valueAlarm = e.currentTarget.textContent;
+		this.setState({ alarmValue: valueAlarm });
 	}
 
 	getValuePriority(e){
-		let priorityValue=e.currentTarget.textContent;
-		this.setState({priorityValue:priorityValue});
+		let priorityValue = e.currentTarget.textContent;
+		this.setState({ priorityValue: priorityValue });
 	}
 
 	colorPriority(index){
@@ -130,8 +136,11 @@ class CreatePanel extends Component {
 											onClick={this.getValueAlarm}
 											key={alarm}
 											name={alarm}
-											style={this.state.alarmValue===alarm ? 
-											{color:'#2F80ED'}:{color:'#212020'}}
+											style={{
+												color: this.state.alarmValue === alarm
+													? '#2F80ED'
+													: '#212020'
+											}}
 										>
 											{alarm}
 										</div>
@@ -148,8 +157,11 @@ class CreatePanel extends Component {
 											onClick={this.getValuePriority}
 											key={priority}
 											name={priority}
-											style={this.state.priorityValue===priority ? 
-											{color:'#2F80ED'}:{color:'#212020'}}
+											style={{
+												color: this.state.priorityValue === priority
+													? '#2F80ED'
+													: '#212020'
+											}}
 										>
 											<div className={this.colorPriority(index)}/>
 											<p>
