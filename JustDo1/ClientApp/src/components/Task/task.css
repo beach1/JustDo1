@@ -73,20 +73,19 @@ textarea:focus{
 }
 
 .task-status img {
-    margin-right: 0.8vw;
-    margin-left: 10px;
+    margin: 0 5px 0 15px;
 }
 
 .task-status .priority {
-    display: flex;
+	display: flex;
+	align-items: center;
     flex-direction: row;
     width: 10vw;
     min-width: 150px;
 }
 
 .task-status .circle {
-    margin-left: 0px;
-    margin-right: 0.8vw;
+    margin: 0 10px 0 0;
 }
 
 .task .red-priority {
