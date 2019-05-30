@@ -9,7 +9,7 @@
     flex-direction: column;
     width: 53%;
     font-size: 16px;
-    font-family: "SF UI Text";
+    font-family: 'SF UI Text', Helvetica, Arial;
 }
 
 .content-align-start {
@@ -19,7 +19,7 @@
     flex-direction: column;
     width: 53%;
     font-size: 16px;
-    font-family: "SF UI Text";
+    font-family: 'SF UI Text', Helvetica, Arial;
 }
 
 .content-align-end form {

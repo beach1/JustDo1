@@ -1,6 +1,6 @@
 .container-li {
     margin-bottom: 5vh;
-    font-family: "SF UI Text";
+    font-family: 'SF UI Text', Helvetica, Arial;
     font-size: 20px;
     overflow: hidden;
     color:#BBBBC7;

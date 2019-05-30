@@ -1,6 +1,6 @@
 .input-field {
     position:relative;
-    font-family: "SF UI Text";
+    font-family: 'SF UI Text', Helvetica, Arial;
 }
 
 .input-field .icon-eye {
@@ -36,7 +36,7 @@
     padding-left: 5px;
     padding-right: 35px;
     margin-bottom: 7vh;
-    font-family: "SF UI Text";
+    font-family: 'SF UI Text', Helvetica, Arial;
 }
 .input-field input::placeholder {
     color:#BBBBC7;

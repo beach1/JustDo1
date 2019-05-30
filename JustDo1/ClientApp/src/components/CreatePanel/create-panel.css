@@ -18,7 +18,7 @@
     width:100%;
     padding-bottom: 8px;
     padding-left: 5px;
-    font-family: "SF UI Text";
+    font-family: 'SF UI Text', Helvetica, Arial;
 }
 
 .dropdown-menu {
@@ -97,7 +97,7 @@
 }
 
 .footer-send {
-    font-family: "SF UI Text";
+    font-family: 'SF UI Text', Helvetica, Arial;
     color:#2F80ED;
     font-size: 16px;
     margin-left: auto;
@@ -156,7 +156,7 @@
 
 .alarm-select div {
     text-align: center;
-    font-family: "SF UI Text";
+    font-family: 'SF UI Text', Helvetica, Arial;
     font-size: 12px;
     width: 7vw;
     min-width: 80px;
@@ -170,7 +170,7 @@
     flex-direction: row;
     align-items:center;
     text-align: center;
-    font-family: "SF UI Text";
+    font-family: 'SF UI Text', Helvetica, Arial;
     font-size: 12px;
     width: 7.7vw;
     min-width: 12px;
