@@ -58,13 +58,20 @@ namespace JustDo1.Model
             using (SqlConnection connection = CreateNewConnection())
             {
                 connection.Open();
-                var priority = (int) task.Priority;
-                var alarm = (int) task.Alarm;
-                string sqlExpression = $"UPDATE {taskTable} SET Name=\'{task.Name}\'," +
-                    $" Description=\'{task.Description}\', Date=\'{task.Date}\'," +
-                    $" Alarm=\'{alarm}\', Priority={priority} WHERE Id=\'{task.Id}\'";
+
+                string sqlExpression = $"UPDATE {taskTable} " +
+                                       "SET Name=@Name , Description=@Description, Date=@Date, Priority=@Priority, Alarm=@Alarm " +
+                                       "WHERE Id=@Id";
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.ExecuteNonQuery();
+
+                command.Parameters.AddWithValue("@Id", task.Id);
+                command.Parameters.AddWithValue("@Name", task.Name);
+                command.Parameters.AddWithValue("@Description", task.Description);
+                command.Parameters.AddWithValue("@Date", task.Date);
+                command.Parameters.AddWithValue("@Priority", (int)task.Priority);
+                command.Parameters.AddWithValue("@Alarm", (int)task.Alarm);
+
+				command.ExecuteNonQuery();
             }
         }
         public void CreateTask(TaskModel task)
@@ -72,13 +79,18 @@ namespace JustDo1.Model
             using (SqlConnection connection = CreateNewConnection())
             {
                 connection.Open();
-                var priority = (int)task.Priority;
-                var alarm = (int)task.Alarm;
-                string sqlExpression = $"INSERT INTO {taskTable} {createTaskKey} VALUES (\'{task.Name}\'," +
-                    $"\'{task.Description}\',\'{task.Date}\'," +
-                    $"{priority},{alarm})";
+
+                string sqlExpression = $"INSERT INTO {taskTable} {createTaskKey} " +
+                                       "VALUES (@Name , @Description, @Date, @Priority, @Alarm)";
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
-                command.ExecuteNonQuery();
+
+                command.Parameters.AddWithValue("@Name", task.Name);
+                command.Parameters.AddWithValue("@Description", task.Description);
+                command.Parameters.AddWithValue("@Date", task.Date);
+                command.Parameters.AddWithValue("@Priority", (int)task.Priority);
+                command.Parameters.AddWithValue("@Alarm", (int)task.Alarm);
+
+				command.ExecuteNonQuery();
             }
         }
 
@@ -88,7 +100,7 @@ namespace JustDo1.Model
             {
                 var sqlExpression = type == 5
 	                ? $"{allTableFields} FROM {taskTable}" 
-	                : $"{allTableFields} FROM {taskTable} WHERE Priority=\'{type}\'";
+	                : $"{allTableFields} FROM {taskTable} WHERE Priority={type}";
 
                 connection.Open();
                 SqlCommand command = new SqlCommand(sqlExpression, connection);
