@@ -111,7 +111,7 @@
     bottom:7vh;
     left:12vw;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    font-family: "SF UI Text"!important;
+    font-family: 'SF UI Text', Helvetica, Arial !important;
     font-weight: 500;
 }
 
@@ -181,7 +181,7 @@
 
 .clock-select div {
     text-align: center;
-    font-family: "SF UI Text";
+    font-family: 'SF UI Text', Helvetica, Arial;
     font-size: 12px;
     width: 7vw;
     min-width: 80px;
