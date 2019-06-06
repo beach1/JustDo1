@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -44,6 +45,7 @@ namespace JustDo1.Model
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+		public bool Checked { get; set; }
         public DateTime Date { get; set; }
         public Alarm Alarm { get; set; }
         public Priority Priority { get; set; }

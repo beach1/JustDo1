@@ -115,6 +115,16 @@
     font-weight: 500;
 }
 
+.footer-dropdown.unleashed {
+	cursor: pointer;
+}
+
+.footer-dropdown.unleashed .react-datepicker{
+	height: auto;
+	bottom: unset;
+    left: unset;
+}
+
 .footer-dropdown .react-datepicker__header {
     background: #FFFFFF;
 }

@@ -7,6 +7,10 @@
     padding: 0px;
 }
 
+.tasks-container::-webkit-scrollbar {
+    display: none;
+}
+
 .container-li p>img{
     margin-left: 10px;
 }

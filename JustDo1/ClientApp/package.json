@@ -11,7 +11,7 @@
     "react-autosize-textarea": "^6.0.0",
     "react-beautiful-dnd": "^10.0.4",
     "react-bootstrap": "^1.0.0-beta.5",
-    "react-datepicker": "^2.1.0",
+    "react-datepicker": "^2.7.0",
     "react-dom": "^16.8.3",
     "react-dropdown-select": "^2.2.2",
     "react-infinite-calendar": "^2.3.1",
@@ -22,7 +22,8 @@
     "react-toastify": "^4.5.2",
     "rimraf": "^2.6.2",
     "semantic-ui-react": "^0.85.0",
-    "simplepicker": "^2.0.0"
+    "simplepicker": "^2.0.0",
+    "styled-components": "^4.2.1"
   },
   "scripts": {
     "start": "rimraf ./build && react-scripts start",

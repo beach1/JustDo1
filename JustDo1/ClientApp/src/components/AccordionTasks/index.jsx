@@ -7,7 +7,7 @@ class AccordionTasks extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen : false
+            isOpen : true
         }
     }
 

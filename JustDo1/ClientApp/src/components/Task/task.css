@@ -1,14 +1,23 @@
 .task {
     width:100%;
-    min-height: 130px;
     z-index: 5;
     font-family: 'SF UI Text', Helvetica, Arial;
     display: flex;
     flex-direction: row;
 }
 
+.task:not(:last-child) {
+	margin-bottom: 20px;
+}
+
 .task .select-task {
-    margin-top: 3.5vh;
+	display: flex;
+    align-items: center;
+}
+
+.task .select-task input{
+	display: flex;
+    align-items: center;
 }
 
 .task input {
@@ -17,17 +26,18 @@
     width:100%;
     padding-bottom: 8px;
     padding-left: 5px;
-    font-family: 'SF UI Text', Helvetica, Arial;
+	font-family: 'SF UI Text', Helvetica, Arial;
+	
+	margin-right: 15px;
 }
 
 input[type="checkbox"] {
-    height: 18px;
-    width: 18px;
+    height: 24px;
+    width: 24px;
     cursor: pointer;
 }
 
 .task-fields {
-    margin-left: 1.8vw;
     width: 100%;
     min-width: 600px;
 }
@@ -37,7 +47,6 @@ input[type="checkbox"] {
     font-weight: 600;
     font-size: 16px;
     margin-bottom: 5px;
-    margin-top: 3vh;
 }
 
 li p:focus{
@@ -47,9 +56,10 @@ li p:focus{
 .task-fields textarea {
     color:#BBBBC7;
     font-size: 16px;
-    width: 100%;
+    width: 50%;
     border:none;
-    margin-bottom:10px; 
+	margin-bottom:10px;
+	resize: none;
 }
 
 .task-fields .footer-line{

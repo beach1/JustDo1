@@ -19,8 +19,8 @@ class App extends Component {
 		return (
 			<Router history={history}>
 				<Switch>
-					<Route path="/signin" exact render={()=> checkAuth() ? <Main></Main>: <SignIn/>}/>
-					<Route path="/" exact render={()=> checkAuth() ? <Main></Main>: <SignIn/>}/>
+					<Route path="/signin" exact render={()=> checkAuth() ? <Main />: <SignIn/>}/>
+					<Route path="/" exact render={()=> checkAuth() ?  <Main />: <SignIn/>}/>
 					<Route path="/signup" exact render={()=> checkAuth() ? <Main/>: <SignUp/>}/>
 					<Route path="/privacy-policy" exact render={()=> checkAuth() ? <Main/>: <PrivacyPolicy/>}/>
 					<Route path="/terms-conditions" exact render={()=> checkAuth() ? <Main/>: <TermsAndConditions/>}/>

@@ -22,13 +22,14 @@ namespace JustDo1.Model
             return Repository.GetTask(taskId);
         }
 
-        public void DeleteTasks(List<string> list)
-        {
-            foreach (var taskId in list)
-            {
-                Repository.DeleteTask(taskId);
-            }
-        }
+        public void CheckTask(string taskId)
+		{
+			Repository.CheckTask(taskId);
+		}
+        public void DeleteTask(string taskId)
+		{
+			Repository.DeleteTask(taskId);
+		}
 
         public void EditTask(TaskModel task)
         {
@@ -40,9 +41,9 @@ namespace JustDo1.Model
             Repository.CreateTask(task);
         }
 
-        public List<TaskModel> AllTasks(int type)
-        {
-            return Repository.AllTasks(type);
+        public List<TaskModel> FilterTasks(int type, string date, bool check)
+		{
+            return Repository.FilterTasks(type, date, check);
         }
     }
 }

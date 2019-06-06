@@ -6,51 +6,58 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace JustDo1.Controllers
 {
-    [Authorize(AuthenticationSchemes =
-        JwtBearerDefaults.AuthenticationScheme)]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TaskController : ControllerBase
-    {
-        private readonly ITaskLogic Logic;
+	[Authorize(AuthenticationSchemes =
+		JwtBearerDefaults.AuthenticationScheme)]
+	[Route("api/[controller]")]
+	[ApiController]
+	public class TaskController : ControllerBase
+	{
+		private readonly ITaskLogic Logic;
 
-        public TaskController(ITaskLogic logic)
-        {
-            Logic = logic;
-        }
+		public TaskController(ITaskLogic logic)
+		{
+			Logic = logic;
+		}
 
-        [HttpGet("{id}")]
-        public IActionResult AllTasks(int id)
-        {
-            return Ok(Logic.AllTasks(id));
-        }
+		[HttpGet("")]
+		public IActionResult FilterTasks([FromQuery] int type, [FromQuery] string date, [FromQuery] bool @checked)
+		{
+			return Ok(Logic.FilterTasks(type, date, @checked));
+		}
 
-        [HttpGet("/one/{id}")]
-        public IActionResult GetSingleTask(string id)
-        {
-            return Ok(Logic.GetTask(id));
-        }
+		[HttpGet("/one/{id}")]
+		public IActionResult GetSingleTask(string id)
+		{
+			return Ok(Logic.GetTask(id));
+		}
 
-        [HttpDelete]
-        public IActionResult DeleteTasks([FromBody] List<string> list)
-        {
-            Logic.DeleteTasks(list);
-            return Ok();
-        }
+		[HttpGet("{id}/toggle")]
+		public IActionResult ToggleTask(string id)
+		{
+			Logic.CheckTask(id);
+			return Ok();
+		}
 
-        [HttpPut]
-        public IActionResult EditSingleTask([FromBody]TaskModel task)
-        {
-            Logic.EditTask(task);
-            return Ok();
-        }
+		[HttpDelete("{id}")]
+		public IActionResult DeleteTask(string id)
+		{
+			Logic.DeleteTask(id);
+			return Ok();
+		}
 
-        [HttpPut("Create")]
-        public IActionResult CreateSingleTask([FromBody]TaskModel task)
-        {
-            Logic.CreateTask(task);
-            return Ok();
-        }
+		[HttpPut]
+		public IActionResult EditSingleTask([FromBody]TaskModel task)
+		{
+			Logic.EditTask(task);
+			return Ok();
+		}
 
-    }
+		[HttpPut("Create")]
+		public IActionResult CreateSingleTask([FromBody]TaskModel task)
+		{
+			Logic.CreateTask(task);
+			return Ok();
+		}
+
+	}
 }
