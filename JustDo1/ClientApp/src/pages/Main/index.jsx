@@ -128,7 +128,7 @@ const PeriodSelector = ({
 				<DatePicker
 					inline
 					dateFormat='DD.MM.YYYY'
-					selected={value.toDate()}
+					selected={value && value.toDate()}
 					onChange={changeDate}
 				/>
 			</Popup>
